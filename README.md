@@ -47,7 +47,7 @@ $flags更多选项参加[文档](http://docs.qiniu.com/api/v6/put.html#uploadTok
 $client->stat('test_bucket_name','test/file3.gif');
 ```
 ###复制
-```
+
 复制到原bucket
 
 ```
