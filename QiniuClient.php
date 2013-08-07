@@ -15,13 +15,13 @@ class QiniuClient
 		$this->secretKey = $secretKey;
 	}
 
-	public function uploadFile($filePath,$bucket,$key)
+	public function uploadFile($filePath,$bucket,$key=null)
 	{
 		$uploadToken = $this->uploadToken(array('scope' => $bucket));
 		$data = array();
 		$data['file'] = "@$filePath";
 		$data['token'] = $uploadToken;
-		$data['key'] = $key;
+		if($key) $data['key'] = $key;
 		 
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::UP_HOST);
@@ -33,7 +33,7 @@ class QiniuClient
 		return $result;
 	}
 
-	public function upload($content,$bucket,$key)
+	public function upload($content,$bucket,$key=null)
 	{
 		$filePath = tempnam(sys_get_temp_dir(), 'UPLOAD');
 		file_put_contents($filePath, $content);
@@ -42,7 +42,7 @@ class QiniuClient
 		return $result;
 	}
 
-	public function uploadRemote($url,$bucket,$key)
+	public function uploadRemote($url,$bucket,$key=null)
 	{
 		$filePath = tempnam(sys_get_temp_dir(), 'UPLOAD');
 		copy($url,$filePath);
